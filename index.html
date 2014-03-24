@@ -47,13 +47,13 @@
                 </th>
               </tr>
             </thead>
-            <tr>
-              <td>
-                {{#each }}
-                  {{title}} <small class="muted"> by {{author.name}}</small>
-                {{/each}}
-              </td>
-            </tr>
+              {{#each }}
+                <tr>
+                  <td>
+                    {{title}} <small class="muted"> by {{author.name}}</small>
+                  </td>
+                </tr>
+              {{/each}}
           </table>
         </div>
         <div class="span9">
