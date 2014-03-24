@@ -9,6 +9,60 @@
 </head>
 <body>
 
+  <script type="text/x-handlebars">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li>{{#link-to "posts"}}Posts{{/link-to}}</li>
+            <li>{{#link-to "about"}}About{{/link-to}}</li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="about" id="about">
+    <h1> this is about</h1>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="posts" id="posts">
+    <h1> These are posts</h1>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  Recent posts
+                </th>
+              </tr>
+            </thead>
+            <tr>
+              <td>
+                {{#each }}
+                  {{title}} <small class="muted"> by {{author.name}}</small>
+                {{/each}}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="span9">
+          {{outlet}}
+        </div>
+      </div>
+    </div>
+  </script>
+
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember.js"></script>
