@@ -47,10 +47,12 @@
                 </th>
               </tr>
             </thead>
-              {{#each }}
+              {{#each}}
                 <tr>
                   <td>
-                    {{title}} <small class="muted"> by {{author.name}}</small>
+                    {{#link-to "post" this}}
+                      {{title}} <small class="muted"> by {{author.name}}</small>
+                    {{/link-to}}
                   </td>
                 </tr>
               {{/each}}
@@ -61,6 +63,22 @@
         </div>
       </div>
     </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="post">
+    <h1>{{title}}</h1>
+    <h2>by {{author.name}} <small class="muted"> {{date}}</small> </h2>
+
+    <hr>
+
+    <div class="intro">
+      {{excerpt}}
+    </div>
+
+    <div class="below-the-fold">
+      {{body}}
+    </div>
+
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
