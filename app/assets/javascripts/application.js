@@ -18,4 +18,55 @@
 //= require ember-data
 //= require_self
 
-Blog = Ember.Application.create();
+var Blog = Ember.Application.create({
+  LOG_TRANSITIONS: true
+});
+
+Blog.Router.map(function() {
+  this.resource("about");
+  this.resource("posts", function () {
+    this.resource("post", { path: ":post_id"});
+  });
+});
+
+Blog.ApplicationAdapter = DS.RESTAdapter.extend({
+    namespace: 'api',
+    host: 'http://localhost:3000'
+});
+
+Blog.Post = DS.Model.extend({
+  author: DS.attr("string"),
+  content: DS.attr("string")
+});
+
+Blog.PostsRoute = Ember.Route.extend({
+  model: function () {
+    return $.getJSON("posts.json", function (items) {
+        return items;
+    });
+  }
+});
+
+Blog.PostRoute = Em.Route.extend({
+
+  model: function (params) {
+    return $.getJSON("posts/"+params.post_id+".json", function (item) {
+        return item;
+    });
+  }
+
+});
+
+Blog.PostController = Ember.ObjectController.extend({
+  isEditing: false,
+
+  actions: {
+    edit: function () {
+      this.set("isEditing", true);
+    },
+    doneEditing: function () {
+      this.set("isEditing", false);
+    },
+
+  }
+});
