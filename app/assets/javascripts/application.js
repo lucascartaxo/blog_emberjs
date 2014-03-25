@@ -22,6 +22,11 @@ var Blog = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
 
+
+DS.RESTAdapter.reopen({
+  host: 'http://localhost:3000/api'
+});
+
 Blog.Router.map(function() {
   this.resource("about");
   this.resource("posts", function () {
@@ -29,44 +34,23 @@ Blog.Router.map(function() {
   });
 });
 
-Blog.ApplicationAdapter = DS.RESTAdapter.extend({
-    namespace: 'api',
-    host: 'http://localhost:3000'
-});
-
 Blog.Post = DS.Model.extend({
   author: DS.attr("string"),
-  content: DS.attr("string")
+  title: DS.attr("string"),
+  body: DS.attr("string")
 });
 
 Blog.PostsRoute = Ember.Route.extend({
-  model: function () {
-    return $.getJSON("posts.json", function (items) {
-        return items;
-    });
+
+  model: function(){
+    return this.store.findAll("post")
   }
 });
 
 Blog.PostRoute = Em.Route.extend({
 
   model: function (params) {
-    return $.getJSON("posts/"+params.post_id+".json", function (item) {
-        return item;
-    });
+    return this.store.find("post", params);
   }
 
-});
-
-Blog.PostController = Ember.ObjectController.extend({
-  isEditing: false,
-
-  actions: {
-    edit: function () {
-      this.set("isEditing", true);
-    },
-    doneEditing: function () {
-      this.set("isEditing", false);
-    },
-
-  }
 });
