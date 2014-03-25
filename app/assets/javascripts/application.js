@@ -31,6 +31,7 @@ Blog.Router.map(function() {
   this.resource("about");
   this.resource("posts", function () {
     this.resource("post", { path: ":post_id"});
+    this.resource("new_post");
   });
 });
 
@@ -53,4 +54,28 @@ Blog.PostRoute = Em.Route.extend({
     return this.store.find("post", params);
   }
 
+});
+
+Blog.NewPostController = Ember.ObjectController.extend({
+  actions: {
+    done: function () {
+      var newPost;
+      var controller = this;
+
+      post = controller.store.createRecord("post",{
+        author: this.get("author"),
+        title: this.get("title"),
+        body: this.get("body")
+      })
+
+      post.save().then(function(newTaskSaved){
+          alert('Task Created!');
+          controller.set("author", "")
+          controller.set("title", "")
+          controller.set("body", "")
+          controller.transitionToRoute("posts", post);
+      });
+
+    }
+  }
 });

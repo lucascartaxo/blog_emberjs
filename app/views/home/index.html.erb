@@ -1,69 +1,79 @@
 <h1>Home#index</h1>
 <p>Find me in app/views/home/index.html.erb</p>
 
-  <script type="text/x-handlebars">
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Brand</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li>{{#link-to "posts"}}Posts{{/link-to}}</li>
-            <li>{{#link-to "about"}}About{{/link-to}}</li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    {{outlet}}
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="about" id="about">
-    <h1> this is about</h1>
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="posts" id="posts">
-    <h1> These are posts</h1>
+<script type="text/x-handlebars">
+  <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>
-                  Recent posts
-                </th>
-              </tr>
-            </thead>
-              {{#each}}
-                <tr>
-                  <td>
-                    {{#link-to "post" this}}
-                      {{title}} <small class="muted"> by {{author}}</small>
-                    {{/link-to}}
-                  </td>
-                </tr>
-              {{/each}}
-          </table>
-        </div>
-        <div class="span9">
-          {{outlet}}
-        </div>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Brand</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li>{{#link-to "posts"}}Posts{{/link-to}}</li>
+          <li>{{#link-to "about"}}About{{/link-to}}</li>
+        </ul>
       </div>
     </div>
-  </script>
+  </nav>
 
-  <script type="text/x-handlebars" data-template-name="post">
-    <h1>{{title}}</h1>
-    <h2>by {{author}} <small > {{created_at}}</small> </h2>
+  {{outlet}}
+</script>
 
-    <hr>
+<script type="text/x-handlebars" data-template-name="about" id="about">
+  <h1> this is about</h1>
+</script>
 
-    <div class="below-the-fold">
-      {{body}}
+<script type="text/x-handlebars" data-template-name="posts" id="posts">
+  <h1> These are posts</h1>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Recent posts
+              </th>
+            </tr>
+          </thead>
+            {{#each}}
+              <tr>
+                <td>
+                  {{#link-to "post" this}}
+                    {{title}} <small class="muted"> by {{author}}</small>
+                  {{/link-to}}
+                </td>
+              </tr>
+            {{/each}}
+        </table>
+        <hr>
+        {{#link-to 'new_post'}}create new post{{/link-to}}
+      </div>
+      <div class="span9">
+        {{outlet}}
+      </div>
     </div>
+  </div>
+</script>
 
-  </script>
+<script type="text/x-handlebars" data-template-name="post">
+  <h1>{{title}}</h1>
+  <h2>by {{author}} <small > {{created_at}}</small> </h2>
+
+  <hr>
+
+  <div class="below-the-fold">
+    {{body}}
+  </div>
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="new_post">
+  author: <p>{{input type="text" value=author}} </p>
+  title: <p>{{input type="text" value=title}} </p>
+  body: <p>{{textarea value=body}} </p>
+
+  <button  {{action "done"}}>Done</button>
+</script>
