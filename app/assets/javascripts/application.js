@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require turbolinks
 //= require handlebars
 //= require ember
@@ -69,7 +70,7 @@ Blog.NewPostController = Ember.ObjectController.extend({
       })
 
       post.save().then(function(newTaskSaved){
-          alert('Task Created!');
+          alert('Post Created!');
           controller.set("author", "")
           controller.set("title", "")
           controller.set("body", "")

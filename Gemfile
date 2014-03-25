@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'ember-rails'
 gem 'ember-source', '1.4.0'
 gem 'mysql2'
+gem 'twitter-bootstrap-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
