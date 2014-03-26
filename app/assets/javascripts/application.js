@@ -17,6 +17,7 @@
 //= require handlebars
 //= require ember
 //= require ember-data
+//= require moment
 //= require_self
 
 var Blog = Ember.Application.create({
@@ -39,7 +40,8 @@ Blog.Router.map(function() {
 Blog.Post = DS.Model.extend({
   author: DS.attr("string"),
   title: DS.attr("string"),
-  body: DS.attr("string")
+  body: DS.attr("string"),
+  created_at: DS.attr("string")
 });
 
 Blog.PostsRoute = Ember.Route.extend({
@@ -125,4 +127,8 @@ Blog.NewPostController = Ember.ObjectController.extend({
 
     }
   }
+});
+
+Ember.Handlebars.helper('format-date', function(date) {
+  return moment(date).fromNow();
 });
