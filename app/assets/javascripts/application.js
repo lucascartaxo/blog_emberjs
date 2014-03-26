@@ -80,6 +80,9 @@ Blog.PostController = Ember.ObjectController.extend({
     edit: function() {
       this.set('isEditing', true);
     },
+    cancel: function () {
+      this.set('isEditing', false);
+    },
 
     done: function() {
       var controller = this;
