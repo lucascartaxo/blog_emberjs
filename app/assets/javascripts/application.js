@@ -52,10 +52,37 @@ Blog.PostsRoute = Ember.Route.extend({
 Blog.PostRoute = Em.Route.extend({
 
   model: function (params) {
-    return this.store.find("post", params);
+    return this.store.find("post", params.post_id);
   }
 
 });
+
+Blog.PostController = Ember.ObjectController.extend({
+  isEditing: false,
+
+  actions: {
+    edit: function() {
+      this.set('isEditing', true);
+    },
+
+    done: function() {
+      var controller = this;
+
+      post = this.get("model");
+      post.author = this.get("author");
+      post.title = this.get("title");
+      post.body = this.get("body");
+
+      post.save().then(function(newTaskSaved){
+        alert('Post updated!');
+
+        controller.set("isEditing", false);
+        controller.transitionToRoute("posts", post);
+      });
+    }
+  }
+});
+
 
 Blog.NewPostController = Ember.ObjectController.extend({
   actions: {

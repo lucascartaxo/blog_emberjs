@@ -13,6 +13,14 @@ class Api::PostsController < ApplicationController
     respond_with Post.create!(post_params)
   end
 
+  def update
+    respond_with Post.find(params[:id]).update(post_params)
+  end
+
+  def destroy
+    respond_with Post.destroy!(post_params)
+  end
+
   private
 
   def post_params

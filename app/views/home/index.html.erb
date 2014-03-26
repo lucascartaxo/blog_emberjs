@@ -27,7 +27,8 @@
               </th>
             </tr>
           </thead>
-            {{#each}}
+          {{#each}}
+            <tbody>
               <tr>
                 <td>
                   {{#link-to "post" this}}
@@ -35,7 +36,8 @@
                   {{/link-to}}
                 </td>
               </tr>
-            {{/each}}
+            </tbody>
+          {{/each}}
         </table>
         <hr>
         {{#link-to 'new_post'}}create new post{{/link-to}}
@@ -48,6 +50,13 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="post">
+
+  {{#if isEditing}}
+    {{partial 'post/edit'}}
+  {{else}}
+    <button {{action 'edit'}} type="button" class="btn btn-default btn-lg">Edit</button>
+  {{/if}}
+
   <h4>{{title}}</h4>
   <h6>by {{author}} <small > {{created_at}}</small> </h6>
 
@@ -60,9 +69,13 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="new_post">
+  {{partial "post/edit"}}
+</script>
+
+<script type="text/x-handlebars" id="post/_edit">
   author: <p>{{input type="text" value=author}} </p>
   title: <p>{{input type="text" value=title}} </p>
   body: <p>{{textarea value=body}} </p>
 
-  <button  {{action "done"}}>Done</button>
+  <button {{action "done"}} type="button" class="btn btn-default btn-lg">Done</button>
 </script>
