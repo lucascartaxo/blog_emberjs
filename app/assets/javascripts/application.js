@@ -57,6 +57,22 @@ Blog.PostRoute = Em.Route.extend({
 
 });
 
+Blog.PostsController = Em.ArrayController.extend({
+    actions: {
+      delete: function(id) {
+        if(confirm("Are you sure?")){
+          var post =  this.store.find("post", id).then(function (post) {
+            post.deleteRecord();
+            post.save().then(function(post){
+              alert('Post deleted!');
+            });
+          })
+        }
+      }
+    }
+});
+
+
 Blog.PostController = Ember.ObjectController.extend({
   isEditing: false,
 
@@ -73,7 +89,7 @@ Blog.PostController = Ember.ObjectController.extend({
       post.title = this.get("title");
       post.body = this.get("body");
 
-      post.save().then(function(newTaskSaved){
+      post.save().then(function(post){
         alert('Post updated!');
 
         controller.set("isEditing", false);
@@ -96,7 +112,7 @@ Blog.NewPostController = Ember.ObjectController.extend({
         body: this.get("body")
       })
 
-      post.save().then(function(newTaskSaved){
+      post.save().then(function(post){
           alert('Post Created!');
           controller.set("author", "")
           controller.set("title", "")

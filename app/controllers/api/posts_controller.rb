@@ -18,7 +18,7 @@ class Api::PostsController < ApplicationController
   end
 
   def destroy
-    respond_with Post.destroy!(post_params)
+    respond_with Post.destroy(params[:id])
   end
 
   private

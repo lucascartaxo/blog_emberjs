@@ -2,8 +2,8 @@
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
 
-      <button type="button" class="btn btn-default btn-lg">{{#link-to "posts"}}Posts{{/link-to}}</button>
-      <button type="button" class="btn btn-default btn-lg">{{#link-to "about"}}About{{/link-to}}</button>
+      {{#link-to "posts"}}<button type="button" class="btn btn-default btn-lg">Posts</button>{{/link-to}}
+      {{#link-to "about"}}<button type="button" class="btn btn-default btn-lg">About</button>{{/link-to}}
     </div>
   </nav>
 
@@ -34,13 +34,16 @@
                   {{#link-to "post" this}}
                     {{title}} <small class="muted"> by {{author}}</small>
                   {{/link-to}}
+                  <div class="pull-right">
+                    <button {{action 'delete' this.id}} type="button" class="btn btn-danger btn-mini">Delete</button>
+                  </div>
                 </td>
               </tr>
             </tbody>
           {{/each}}
         </table>
         <hr>
-        {{#link-to 'new_post'}}create new post{{/link-to}}
+        {{#link-to 'new_post'}}<button type="button" class="btn btn-default btn-large">Create new post</button>{{/link-to}}
       </div>
       <div class="span9">
         {{outlet}}
