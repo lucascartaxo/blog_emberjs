@@ -1,3 +1,1 @@
-EmberJS for fun!
-
-http://emberjs.com/guides/
+Just a simple blog Rails app with EmberJS
